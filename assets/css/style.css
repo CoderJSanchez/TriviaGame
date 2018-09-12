@@ -1,0 +1,10 @@
+.jumbotron{
+    background-color: aqua;
+}
+
+#answer1:hover,
+#answer2:hover,
+#answer3:hover,
+#answer4:hover{
+    background-color: blueviolet;
+}
