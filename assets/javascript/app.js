@@ -1,65 +1,77 @@
-$(document).ready(function(){
+$(document).ready(function () {
 
-    const ques = $('#question')
-    const ans1  = $('#answer1')
-    const ans2  = $('#answer2')
-    const ans3  = $('#answer3')
-    const ans4  = $('#answer4')
-    const timeDiv = $('#timeRemaining');
-    let timer = 3;
     let intervalID;
-    let clockRunning = false;
+    const timeDiv = $('#timeRemaining');
+    let timer = 121;
+    //all content is hidden until START button is clicked, then the button is hidden and 
+    //the below functions are called and the timer is shown.
+    $('#startButton').on('click', function () {
+        $(this).hide();
+        timeDiv.html(timer);
+        createQuestions();
+        startCountDown();
+    }) //End of on.click 
 
-    $('#startButton').on('click', function(){
-        function question1(){
-        timeDiv.html('Time Remaining: 00:00')
-        ques.html('<h3>How old is the Sun?</h3>');
-        ans1.html('answer to question one');
-        ans2.html('answer to question one');
-        ans3.html('answer to question one');
-        ans4.html('answer to question one');
+    //function to hold setInterval.  It us called when the START click happens
+    function startCountDown() {
+        intervalID = setInterval(countDown, 1000);
     }
-        $('#startButton').hide();
-        question1();
-        countDown();
+    //function to decrement the timer and stop it when it reaches 0
+    function countDown() {
+        timer--;
+        $(timeDiv).html(timer);
+        if(timer === 0){
+            clearInterval(intervalID);
+        }
+    }
+    
+    //array of objects holding questions
+    const questions = [
+        {
+            q: "What make is Michael Scotts car?",
+            options: ['Cadillac', 'Chrysler', 'Ford', 'Chevy'],
+            correct: "cadillac"
+        },
+        {
+            q: "Who does Dwight date?",
+            options: ['Pam', 'Jan', 'Meradeth', 'Angela'],
+            correct: 'Angela'
+        },
+        {
+            q: "What is Andy's job?",
+            options: ['Warehouse', 'Sales', 'Accounting', 'Front-desk'],
+            correct: 'Angela'
+        },
+        {
+            q: "What is Dwights middle name?",
+            options: ['Kurt', 'Sam', 'Chris', 'Wyane'],
+            correct: 'Kurt'
+        },
+        {
+            
+            q: "In which season do Jim and Pam start dating?",
+            options: ['Season 1', 'Season 2', 'Season 3', 'Season 4'],
+            correct: 'Season 4'
+            
+        }
 
-    intervalID = setInterval(countDown, 1000);
+    ];
+    //this function creates all the questions above and the for loop affects the DOM
+    function createQuestions() {
+        for (let i = 0; i < questions.length; i++) {
+            var newDiv = $('<div></div>');
+            newDiv.addClass('col-md-12 text-center');
+            newDiv.html(questions[i].q);
 
-        function countDown(){
-            timer--;
-            timeDiv.html(timer);
-            if( timer === 0){
-                //stopTimer();
-                question2();
-                
-            }
-        } 
-    
-    })
-    
-    
-    function question2(){
-        timer = 3;
-      
-        timeDiv.html(timer)
-        ques.html('<h3>Do you like to code?</h3>');
-        ans1.html('answer to question two');
-        ans2.html('answer to question two');
-        ans3.html('answer to question two');
-        ans4.html('answer to question two');
-        countDown();
+            var answerDiv = $('<div></div>');
+            answerDiv.addClass('col-md-12 text-center mb-3 form-check ');
+            answerDiv.html(questions[i].options.join(' '));
+            $('#questionRow').append(newDiv, answerDiv);
+
+        }
     }
 
     
-    
-    function stopTimer(){
-        clearInterval(intervalID)
-    }
-
-
-
-
-
 
 
 
