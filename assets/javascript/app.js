@@ -2,7 +2,7 @@ $(document).ready(function () {
     let questionTrack = 0;
     let intervalID;
     const timeDiv = $('#timeRemaining');
-    let timer = 3;
+    let timer = 15;
     //all content is hidden until START button is clicked, then the button is hidden and 
     //the below functions are called and the timer is shown.
     $('#startButton').on('click', function () {
@@ -22,13 +22,17 @@ $(document).ready(function () {
         timeDiv.html(timer);
         if(timer === 0){
             questionTrack++;
-            timer = 4;
+            timer = 16;
             nextQuestion();
             //clearInterval(intervalID);
         }
+
+        if(questionTrack === questions.length){
+            clearInterval(intervalID);
+            alert('that was the last question');
+        }
     }
 
-    
     //array of objects holding questions
     const questions = [
         {
@@ -75,27 +79,8 @@ $(document).ready(function () {
         $('#answerRow4').text(questions[theNextQuestion].options[3]);
        
     }
-    console.log(questions[0].q);
-    console.log(questions[0 + 1].q);
-
-    console.log(questionTrack);
+   
     
 
  
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 }) // end of ready()
