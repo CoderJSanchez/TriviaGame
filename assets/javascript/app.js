@@ -1,15 +1,14 @@
 $(document).ready(function () {
-
     let intervalID;
     const timeDiv = $('#timeRemaining');
-    let timer = 121;
+    let timer = 3;
     //all content is hidden until START button is clicked, then the button is hidden and 
     //the below functions are called and the timer is shown.
     $('#startButton').on('click', function () {
         $(this).hide();
         timeDiv.html(timer);
-        createQuestions();
         startCountDown();
+        nextQuestion();
     }) //End of on.click 
 
     //function to hold setInterval.  It us called when the START click happens
@@ -19,11 +18,14 @@ $(document).ready(function () {
     //function to decrement the timer and stop it when it reaches 0
     function countDown() {
         timer--;
-        $(timeDiv).html(timer);
+        timeDiv.html(timer);
         if(timer === 0){
-            clearInterval(intervalID);
+            timer = 4;
+            nextQuestion();
+            //clearInterval(intervalID);
         }
     }
+
     
     //array of objects holding questions
     const questions = [
@@ -40,7 +42,7 @@ $(document).ready(function () {
         {
             q: "What is Andy's job?",
             options: ['Warehouse', 'Sales', 'Accounting', 'Front-desk'],
-            correct: 'Angela'
+            correct: 'Sales'
         },
         {
             q: "What is Dwights middle name?",
@@ -56,23 +58,30 @@ $(document).ready(function () {
         }
 
     ];
-    //this function creates all the questions above and the for loop affects the DOM
-    function createQuestions() {
-        for (let i = 0; i < questions.length; i++) {
-            var newDiv = $('<div></div>');
-            newDiv.addClass('col-md-12 text-center');
-            newDiv.html(questions[i].q);
 
-            var answerDiv = $('<div></div>');
-            answerDiv.addClass('col-md-12 text-center mb-3 form-check ');
-            answerDiv.html(questions[i].options.join(' '));
-            $('#questionRow').append(newDiv, answerDiv);
-
-        }
+    function nextQuestion(){
+        showQuestion();
     }
+
+    function showQuestion(){
+        var randomQuestion = Math.floor(Math.random() * 5);
+        $('#questionRow').text(questions[randomQuestion].q);
+        $('#answerRow1').text(questions[randomQuestion].options[0]);
+        $('#answerRow2').text(questions[randomQuestion].options[1]);
+        $('#answerRow3').text(questions[randomQuestion].options[2]);
+        $('#answerRow4').text(questions[randomQuestion].options[3]);
+       
+    }
+    // function makeRandomQuestion(){
+    //     var randomQuestion = Math.floor(Math.random() * 5);
+    // }
+    
 
     
 
+    
+
+ 
 
 
 
