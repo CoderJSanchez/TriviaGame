@@ -1,4 +1,5 @@
 $(document).ready(function () {
+    let questionTrack = 0;
     let intervalID;
     const timeDiv = $('#timeRemaining');
     let timer = 3;
@@ -20,6 +21,7 @@ $(document).ready(function () {
         timer--;
         timeDiv.html(timer);
         if(timer === 0){
+            questionTrack++;
             timer = 4;
             nextQuestion();
             //clearInterval(intervalID);
@@ -64,21 +66,19 @@ $(document).ready(function () {
     }
 
     function showQuestion(){
-        var randomQuestion = Math.floor(Math.random() * 5);
-        $('#questionRow').text(questions[randomQuestion].q);
-        $('#answerRow1').text(questions[randomQuestion].options[0]);
-        $('#answerRow2').text(questions[randomQuestion].options[1]);
-        $('#answerRow3').text(questions[randomQuestion].options[2]);
-        $('#answerRow4').text(questions[randomQuestion].options[3]);
+        var theNextQuestion = questionTrack;
+        //var randomQuestion = Math.floor(Math.random() * 5);
+        $('#questionRow').text(questions[theNextQuestion].q);
+        $('#answerRow1').text(questions[theNextQuestion].options[0]);
+        $('#answerRow2').text(questions[theNextQuestion].options[1]);
+        $('#answerRow3').text(questions[theNextQuestion].options[2]);
+        $('#answerRow4').text(questions[theNextQuestion].options[3]);
        
     }
-    // function makeRandomQuestion(){
-    //     var randomQuestion = Math.floor(Math.random() * 5);
-    // }
-    
+    console.log(questions[0].q);
+    console.log(questions[0 + 1].q);
 
-    
-
+    console.log(questionTrack);
     
 
  
