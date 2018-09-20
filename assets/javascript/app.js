@@ -1,8 +1,10 @@
 $(document).ready(function () {
+    let correctAnswerCounter = 0;
+    let wrongAnswerCounter = 0;
     let questionTrack = 0;
     let intervalID;
     const timeDiv = $('#timeRemaining');
-    let timer = 15;
+    let timer = 3;
     //all content is hidden until START button is clicked, then the button is hidden and 
     //the below functions are called and the timer is shown.
     $('#startButton').on('click', function () {
@@ -22,7 +24,7 @@ $(document).ready(function () {
         timeDiv.html(timer);
         if(timer === 0){
             questionTrack++;
-            timer = 16;
+            timer = 4;
             nextQuestion();
             //clearInterval(intervalID);
         }
@@ -38,7 +40,7 @@ $(document).ready(function () {
         {
             q: "What make is Michael Scotts car?",
             options: ['Cadillac', 'Chrysler', 'Ford', 'Chevy'],
-            correct: "cadillac"
+            correct: 'Cadillac'
         },
         {
             q: "Who does Dwight date?",
@@ -66,21 +68,24 @@ $(document).ready(function () {
     ];
 
     function nextQuestion(){
-        showQuestion();
+        n();
     }
 
-    function showQuestion(){
+    function n(){
+        //for(let i = 0; i < 4; i++){
         var theNextQuestion = questionTrack;
-        //var randomQuestion = Math.floor(Math.random() * 5);
         $('#questionRow').text(questions[theNextQuestion].q);
-        $('#answerRow1').text(questions[theNextQuestion].options[0]);
-        $('#answerRow2').text(questions[theNextQuestion].options[1]);
-        $('#answerRow3').text(questions[theNextQuestion].options[2]);
-        $('#answerRow4').text(questions[theNextQuestion].options[3]);
-       
-    }
-   
-    
+        for(let j = 0; j < 4; j++){
+            var optionsList = $('<div>');
+            optionsList.text(questions[theNextQuestion].options[j]);
+            optionsList.addClass('text-center');
+            optionsList.attr({'data-index': j });
+            $('#answerList').append(optionsList);
 
+        }
+  
+    }
+    n();
+    
  
 }) // end of ready()
