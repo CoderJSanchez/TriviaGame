@@ -72,20 +72,22 @@ $(document).ready(function () {
     }
 
     function n(){
-        //for(let i = 0; i < 4; i++){
+       
         var theNextQuestion = questionTrack;
         $('#questionRow').text(questions[theNextQuestion].q);
+        $('#answerList').empty();
         for(let j = 0; j < 4; j++){
             var optionsList = $('<div>');
             optionsList.text(questions[theNextQuestion].options[j]);
             optionsList.addClass('text-center');
-            optionsList.attr({'data-index': j });
+            optionsList.attr({'data-answerName': j });
             $('#answerList').append(optionsList);
-
+           
         }
+        
   
     }
-    n();
+
     
  
 }) // end of ready()
