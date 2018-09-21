@@ -2,9 +2,14 @@
     background-color: aqua;
 }
 
-#answerRow1:hover,
-#answerRow2:hover,
-#answerRow3:hover,
-#answerRow4:hover{
+.answerListHover:hover{
     background-color: blueviolet;
+}
+
+#questionRow{
+    font-size: 2rem;
+}
+
+#answerList{
+    font-size: 1.5rem;
 }

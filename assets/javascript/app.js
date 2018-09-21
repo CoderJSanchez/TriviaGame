@@ -1,10 +1,11 @@
 $(document).ready(function () {
     let correctAnswerCounter = 0;
     let wrongAnswerCounter = 0;
+    let unansweredCounter = 0;
     let questionTrack = 0;
     let intervalID;
     const timeDiv = $('#timeRemaining');
-    let timer = 3;
+    let timer = 5;
     //all content is hidden until START button is clicked, then the button is hidden and 
     //the below functions are called and the timer is shown.
     $('#startButton').on('click', function () {
@@ -18,15 +19,18 @@ $(document).ready(function () {
     function startCountDown() {
         intervalID = setInterval(countDown, 1000);
     }
+
     //function to decrement the timer and stop it when it reaches 0
     function countDown() {
         timer--;
         timeDiv.html(timer);
         if(timer === 0){
             questionTrack++;
-            timer = 4;
+            unansweredCounter++;
+            timer = 6;
             nextQuestion();
             //clearInterval(intervalID);
+            
         }
 
         if(questionTrack === questions.length){
@@ -40,28 +44,28 @@ $(document).ready(function () {
         {
             q: "What make is Michael Scotts car?",
             options: ['Cadillac', 'Chrysler', 'Ford', 'Chevy'],
-            correct: 'Cadillac'
+            correct: 0
         },
         {
             q: "Who does Dwight date?",
             options: ['Pam', 'Jan', 'Meradeth', 'Angela'],
-            correct: 'Angela'
+            correct: 3
         },
         {
             q: "What is Andy's job?",
             options: ['Warehouse', 'Sales', 'Accounting', 'Front-desk'],
-            correct: 'Sales'
+            correct: 1
         },
         {
             q: "What is Dwights middle name?",
             options: ['Kurt', 'Sam', 'Chris', 'Wyane'],
-            correct: 'Kurt'
+            correct: 0
         },
         {
             
             q: "In which season do Jim and Pam start dating?",
             options: ['Season 1', 'Season 2', 'Season 3', 'Season 4'],
-            correct: 'Season 4'
+            correct: 3
             
         }
 
@@ -76,17 +80,35 @@ $(document).ready(function () {
         var theNextQuestion = questionTrack;
         $('#questionRow').text(questions[theNextQuestion].q);
         $('#answerList').empty();
-        for(let j = 0; j < 4; j++){
+        for(let j = 0; j < 5; j++){
             var optionsList = $('<div>');
             optionsList.text(questions[theNextQuestion].options[j]);
-            optionsList.addClass('text-center');
-            optionsList.attr({'data-answerName': j });
-            $('#answerList').append(optionsList);
-           
+            optionsList.addClass('col-md-12 text-center answerListHover');
+            let rightIndex = questions[theNextQuestion].correct
+            optionsList.attr('data-correct', questions[theNextQuestion].options[rightIndex]);
+            console.log(questions[theNextQuestion].correct);
+            $('#answerList').append(optionsList);    
         }
         
-  
+        $('.answerListHover').on('click', function(event){
+            event.preventDefault();
+            clearInterval(intervalID);
+            
+            if( $(this).attr('data-correct') == questions[theNextQuestion].correct ){
+                alert('Match');
+            }
+
+            console.log( `This is $(this) ${$(this).attr('data-correct')}` ); //text
+            console.log( `This is questions.correct ${questions[theNextQuestion].correct}` );//integer
+            
+        
+        })
     }
+
+   
+
+   
+   
 
     
  
