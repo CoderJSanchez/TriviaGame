@@ -13,3 +13,9 @@
 #answerList{
     font-size: 1.5rem;
 }
+
+#unanswered,
+#correct,
+#incorrect{
+    font-size: 1.5rem;
+}
