@@ -75,7 +75,7 @@ $(document).ready(function () {
     function nextQuestion(){
         n();
     }
-
+    //i thought this would set off the timer to move to a new page after making a selection
     function answeredTimer(){
         setTimeout(nextQuestion, 3000);
     }
